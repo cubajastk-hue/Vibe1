@@ -1,17 +1,23 @@
-import React from "react";
-import { client } from "@/tina/__generated__/client";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+import { ExperimentalGetTinaClient } from "@/tina/__generated__/types";
 
 export default async function HomePage() {
-  const res = await client.queries.homepage({
+  const tina = ExperimentalGetTinaClient();
+
+  const res = await tina.homepage({
     relativePath: "homepage.json",
   });
 
-  const { title, subtitle } = res.data.homepage;
-
   return (
     <main className="text-center py-32">
-      <h1 className="text-5xl font-bold">{title}</h1>
-      <p className="mt-4 text-xl text-slate-600">{subtitle}</p>
+      <h1 className="text-5xl font-bold">
+        {res.data.homepage.title}
+      </h1>
+      <p className="mt-4 text-xl text-slate-600">
+        {res.data.homepage.subtitle}
+      </p>
     </main>
   );
 }
