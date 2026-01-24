@@ -1,30 +1,29 @@
 import { defineConfig } from "tinacms";
 
-// Branch – funguje lokálně i na Vercelu
 const branch =
   process.env.NEXT_PUBLIC_TINA_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
+  process.env.HEAD ||
   "main";
+
+// ⚠️ Explicitně zde zadej ID a token z Tina Cloud
+const clientId = "19865abe-76ca-4967-8391-298b8dc07a70"; // Tvůj Tina Client ID
+const token = "16eecb20787b5a20cb2505a604abd01dfd6ea568";   // Tvůj Tina Token
 
 export default defineConfig({
   branch,
-
-  // ❗ bere se z ENV proměnných
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
-  token: process.env.TINA_TOKEN!,
-
+  clientId, // použij explicitně
+  token,    // použij explicitně
   build: {
-    outputFolder: "public/admin",
+    outputFolder: "admin",
     publicFolder: "public",
   },
-
   media: {
     tina: {
       mediaRoot: "",
       publicFolder: "public",
     },
   },
-
   schema: {
     collections: [
       {
@@ -32,20 +31,10 @@ export default defineConfig({
         label: "Homepage",
         path: "content",
         format: "json",
-        match: {
-          include: "homepage",
-        },
+        match: { include: "homepage" },
         fields: [
-          {
-            name: "title",
-            label: "Nadpis",
-            type: "string",
-          },
-          {
-            name: "subtitle",
-            label: "Podnadpis",
-            type: "string",
-          },
+          { name: "title", label: "Nadpis", type: "string" },
+          { name: "subtitle", label: "Podnadpis", type: "string" },
         ],
       },
     ],
