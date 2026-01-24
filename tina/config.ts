@@ -1,31 +1,30 @@
 import { defineConfig } from "tinacms";
 
-// Your hosting provider likely exposes this as an environment variable
+// Branch – funguje lokálně i na Vercelu
 const branch =
-  process.env.GITHUB_BRANCH ||
+  process.env.NEXT_PUBLIC_TINA_BRANCH ||
   process.env.VERCEL_GIT_COMMIT_REF ||
-  process.env.HEAD ||
   "main";
 
 export default defineConfig({
   branch,
 
-  // Get this from tina.io
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID,
-  // Get this from tina.io
-  token: process.env.TINA_TOKEN,
+  // ❗ bere se z ENV proměnných
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
+  token: process.env.TINA_TOKEN!,
 
   build: {
-    outputFolder: "admin",
+    outputFolder: "public/admin",
     publicFolder: "public",
   },
+
   media: {
     tina: {
       mediaRoot: "",
       publicFolder: "public",
     },
   },
-  // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/r/content-modelling-collections/
+
   schema: {
     collections: [
       {
@@ -34,24 +33,21 @@ export default defineConfig({
         path: "content",
         format: "json",
         match: {
-          include: "homepage"
+          include: "homepage",
         },
         fields: [
           {
             name: "title",
             label: "Nadpis",
-            type: "string"
+            type: "string",
           },
           {
             name: "subtitle",
             label: "Podnadpis",
-            type: "string"
-          }
-        ]
-      }
+            type: "string",
+          },
+        ],
+      },
     ],
-  },
-  ui: {
-    // You can add supported UI options here if needed
   },
 });
