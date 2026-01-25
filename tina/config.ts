@@ -1,40 +1,49 @@
 import { defineConfig } from "tinacms";
 
-const branch =
-  process.env.NEXT_PUBLIC_TINA_BRANCH ||
-  process.env.VERCEL_GIT_COMMIT_REF ||
-  process.env.HEAD ||
-  "main";
-
-// ⚠️ Explicitně zde zadej ID a token z Tina Cloud
-const clientId = "19865abe-76ca-4967-8391-298b8dc07a70"; // Tvůj Tina Client ID
-const token = "16eecb20787b5a20cb2505a604abd01dfd6ea568";   // Tvůj Tina Token
-
 export default defineConfig({
-  branch,
-  clientId, // použij explicitně
-  token,    // použij explicitně
+  branch: process.env.NEXT_PUBLIC_TINA_BRANCH ?? "main",
+
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? "",
+
+  // ❗️Pouze pro CLI / build / admin
+  token: process.env.TINA_TOKEN ?? "",
+
   build: {
-    outputFolder: "admin",
     publicFolder: "public",
+    outputFolder: "admin",
   },
+
   media: {
     tina: {
-      mediaRoot: "",
       publicFolder: "public",
+      mediaRoot: "uploads",
     },
   },
+
+  // ❗️Pouze pro frontend (read)
+  client: {
+    token: process.env.TINA_PUBLIC_TOKEN ?? "",
+  },
+
   schema: {
     collections: [
       {
         name: "homepage",
         label: "Homepage",
-        path: "content",
+        path: "content/homepage",
         format: "json",
-        match: { include: "homepage" },
         fields: [
-          { name: "title", label: "Nadpis", type: "string" },
-          { name: "subtitle", label: "Podnadpis", type: "string" },
+          {
+            type: "string",
+            name: "title",
+            label: "Title",
+            required: true,
+          },
+          {
+            type: "string",
+            name: "description",
+            label: "Description",
+          },
         ],
       },
     ],
