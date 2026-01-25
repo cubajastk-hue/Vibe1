@@ -3,12 +3,9 @@
   "version": "0.1.0",
   "private": true,
 "scripts": {
-    "dev": "tinacms dev -c \"next dev\"",
+    "dev": "next dev",
     "build": "tinacms build && next build",
-    "start": "next start",
-    "lint": "next lint",
-    "tina:build": "dotenv -e .env.local -- tinacms build",
-    "tina:build:force": "dotenv -e .env.local -- tinacms build --skip-cloud-checks"
+    "start": "next start"
   },
   "dependencies": {
     "lucide-react": "^0.378.0",

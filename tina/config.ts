@@ -15,7 +15,7 @@ export default defineConfig({
   clientId, // použij explicitně
   token,    // použij explicitně
   build: {
-    outputFolder: "public/admin",
+    outputFolder: "admin",
     publicFolder: "public",
   },
   media: {
