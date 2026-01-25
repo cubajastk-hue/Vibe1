@@ -1,28 +1,26 @@
 import { defineConfig } from "tinacms";
 
+const branch =
+  process.env.NEXT_PUBLIC_TINA_BRANCH ||
+  process.env.VERCEL_GIT_COMMIT_REF ||
+  "main";
+
 export default defineConfig({
-  branch: process.env.NEXT_PUBLIC_TINA_BRANCH ?? "main",
+  branch,
 
-  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID ?? "",
-
-  // ❗️Pouze pro CLI / build / admin
-  token: process.env.TINA_TOKEN ?? "",
+  clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
+  token: process.env.TINA_TOKEN!,
 
   build: {
-    publicFolder: "public",
     outputFolder: "admin",
+    publicFolder: "public",
   },
 
   media: {
     tina: {
+      mediaRoot: "",
       publicFolder: "public",
-      mediaRoot: "uploads",
     },
-  },
-
-  // ❗️Pouze pro frontend (read)
-  client: {
-    token: process.env.TINA_PUBLIC_TOKEN ?? "",
   },
 
   schema: {
@@ -30,19 +28,21 @@ export default defineConfig({
       {
         name: "homepage",
         label: "Homepage",
-        path: "content/homepage",
+        path: "content",
         format: "json",
+        match: {
+          include: "homepage",
+        },
         fields: [
           {
-            type: "string",
             name: "title",
-            label: "Title",
-            required: true,
+            label: "Nadpis",
+            type: "string",
           },
           {
+            name: "subtitle",
+            label: "Podnadpis",
             type: "string",
-            name: "description",
-            label: "Description",
           },
         ],
       },

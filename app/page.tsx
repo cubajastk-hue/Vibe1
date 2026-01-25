@@ -16,7 +16,7 @@ export default async function HomePage() {
         {res.data.homepage.title}
       </h1>
       <p className="mt-4 text-xl text-slate-600">
-        {res.data.homepage.subtitle}
+        {res.data.homepage.description}
       </p>
     </main>
   );
