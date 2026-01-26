@@ -4,6 +4,9 @@ export const revalidate = 0;
 import { ExperimentalGetTinaClient } from "@/tina/__generated__/types";
 
 export default async function HomePage() {
+  if (process.env.VERCEL_ENV === "production") {
+    return <div>Build OK</div>;
+  }
   const tina = ExperimentalGetTinaClient();
 
   const res = await tina.homepage({
