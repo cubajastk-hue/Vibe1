@@ -4,8 +4,10 @@
   "private": true,
 "scripts": {
     "dev": "next dev",
-    "build": "tinacms build && next build",
-    "start": "next start"
+    "build": "next build",
+    "start": "next start",
+    "tina:build": "tinacms build",
+    "tina:dev": "tinacms dev"
   },
   "dependencies": {
     "lucide-react": "^0.378.0",
